@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import About from "./components/Pages/About/About";
+import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+import MobileNav from "./components/Navbar/MobileNav/MobileNav";
+import NavBar from "./components/Navbar/NavBar";
 
 function App() {
+  const [showFeatures, setShowFeatures] = useState(false);
+  const [showCompany, setShowComapany] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [mobileNav, setMobileNav] = useState(false);
+  const [body, setBody] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {mobileNav && <MobileNav setBody={setBody} setMobileNav={setMobileNav} />}
+
+      {body && (
+        <div className="App">
+          <NavBar
+            showFeatures={showFeatures}
+            setShowFeatures={setShowFeatures}
+            showCompany={showCompany}
+            setShowComapany={setShowComapany}
+            showHelp={showHelp}
+            setShowHelp={setShowHelp}
+            setBody={setBody}
+            setMobileNav={setMobileNav}
+          />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          <Footer />
+        </div>
+      )}
+    </>
   );
 }
 
